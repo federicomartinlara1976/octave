@@ -1,4 +1,4 @@
-function [valor, int, error] = integracion(a, b, tolerancia)
+function [valor, int, error] = integracion(a, b, tolerancia, iteraciones)
   error = "";
   n0 = 14;
   n = n0;
@@ -6,7 +6,7 @@ function [valor, int, error] = integracion(a, b, tolerancia)
   sum = simpson(a,b,n,h);
   int(1) = sum;
   ni = 0;
-  for j = 2:8
+  for j = 2:iteraciones
     n = (2^j) * n0;
     h = (b-a) / n;
     sum = simpson(a,b,n,h);
@@ -20,8 +20,8 @@ function [valor, int, error] = integracion(a, b, tolerancia)
     ni = j;
   end 
   
-  if (ni == 8)
+  if (ni == iteraciones)
     valor = NaN;
-    error = "Convergencia no lograda tras 8 iteraciones.";
+    error = sprintf('Convergencia no lograda tras %d iteraciones', iteraciones);
   endif
 endfunction
