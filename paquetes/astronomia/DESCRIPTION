@@ -1,0 +1,9 @@
+Name: Astronomia
+Version: 1.1.0
+Date: 2025-10-05
+Author: Federico Martín Lara
+Maintainer: Federico Martín Lara <federicomartinlara1976@gmail.com>
+Title: Herramientas Astronómicas Básicas
+Description: Paquete para cálculos astronómicos: coordenadas, tiempo sidéreo, conversiones.
+License: GPLv3+
+Url: https://ejemplo.com
