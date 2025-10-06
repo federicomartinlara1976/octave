@@ -1,3 +1,6 @@
+% --- mostrar_ayuda.m ---
+% Muestra la ayuda de este paquete
+
 function mostrar_ayuda()
   printf('\n=== PAQUETE ASTRONOMIA (Modular) ===\n');
   printf('Módulos cargados:\n');
