@@ -6,4 +6,5 @@ function ejecutar_demo()
   demo_coordenadas();
   demo_tiempo();
   demo_planetas();
+  demo_utilidades();
 endfunction   
