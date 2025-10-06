@@ -8,6 +8,5 @@ function mostrar_ayuda()
   printf('• tiempo.m       - Cálculos de tiempo astronómico\n');
   printf('• conversiones.m - Conversiones básicas\n');
   printf('• planetas.m     - Efemérides planetarias\n');
-  printf('• utils.m        - Utilidades\n');
   printf('\nUse astronomia(''demo'') para ejemplos.\n');
 endfunction

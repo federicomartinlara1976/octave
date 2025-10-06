@@ -26,7 +26,7 @@ function astronomia(cmd)
       ejecutar_demo();
     
     case 'help'
-      mostrar_ayuda_completa();
+      mostrar_ayuda();
     
     otherwise
       printf('Comando no reconocido: %s\n', cmd);
