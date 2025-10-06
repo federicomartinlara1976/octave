@@ -11,4 +11,9 @@ function demo_utilidades()
     
     vel_tierra = orbital_velocity(1);
     printf("Velocidad orbital Tierra: %.2f km/s\n", vel_tierra);
+    
+    % Ejemplo: 15 días después de luna nueva
+    [fase, porcentaje_iluminacion] = fase_lunar_aproximada(15);
+    printf("Fase lunar aproximada: %s\n", fase);
+    printf("Luna %.1f%% iluminada\n", porcentaje_iluminacion);
 endfunction 
