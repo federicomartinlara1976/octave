@@ -6,8 +6,11 @@ function astronomia(cmd)
 %
 %   astronomia()          - Muestra ayuda básica
 %   astronomia('version') - Muestra versión
+%   astronomia('about')   - Muestra Acerca de...
 %   astronomia('test')    - Ejecuta tests
 %   astronomia('demo')    - Ejecuta demostración
+
+  version = '1.1.0';
 
   if nargin == 0
     mostrar_ayuda();
@@ -16,8 +19,11 @@ function astronomia(cmd)
   
   switch (cmd)
     case 'version'
-      printf('Astronomia v1.0.0\n');
-      printf('Estructura modular con múltiples archivos\n');
+      printf('%s\n', version);
+      
+    case 'about'
+      printf('Astronomia v%s\n', version);
+      printf('Paquete para cálculos astronómicos\n');
     
     case 'test'
       ejecutar_tests();

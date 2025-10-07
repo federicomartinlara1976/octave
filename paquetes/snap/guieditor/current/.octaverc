@@ -1,0 +1,7 @@
+try
+    pkg load astronomia;
+    printf('Paquete Astronomia v1.1.0 cargado\n');
+    printf('Usa: astronomia() para ayuda\n');
+catch
+    printf('Paquete Astronomia no disponible\n');
+end_try_catch
