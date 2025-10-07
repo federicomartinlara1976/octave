@@ -10,7 +10,7 @@ function astronomia(cmd)
 %   astronomia('test')    - Ejecuta tests
 %   astronomia('demo')    - Ejecuta demostración
 
-  version = '1.1.0';
+  astronomia_version = '1.1.0';
 
   if nargin == 0
     mostrar_ayuda();
@@ -19,10 +19,10 @@ function astronomia(cmd)
   
   switch (cmd)
     case 'version'
-      printf('%s\n', version);
+      printf('%s\n', astronomia_version);
       
     case 'about'
-      printf('Astronomia v%s\n', version);
+      printf('Astronomia v%s\n', astronomia_version);
       printf('Paquete para cálculos astronómicos\n');
     
     case 'test'
