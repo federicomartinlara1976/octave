@@ -36,10 +36,6 @@ function demo_mecanica()
 
     % 5. Resolver ecuación de Kepler
     printf('\n2. ECUACIÓN DE KEPLER:\n');
-    syms E_val M_val e_val
-
-    % Definir ecuación
-    kepler_eq = M_val == E_val - e_val * sin(E_val);
 
     % Caso 1: Anomalía media de 45°, excentricidad 0.1
     M_45 = deg2rad(45);
@@ -61,16 +57,31 @@ function demo_mecanica()
     printf('    Anomalía excéntrica: %.2f°\n', rad2deg(E_sol_90));
     printf('    Diferencia E-M: %.2f°\n', rad2deg(E_sol_90 - M_90));
 
-    % 6. Demostración de conservación de energía
+    % 6. Demostración de conservación de energía (CORREGIDO)
     printf('\n3. ENERGÍA ORBITAL:\n');
-    r_peri = a_tierra * (1 - e_tierra);  % Perihelio
-    r_afe = a_tierra * (1 + e_tierra);   % Afelio
 
-    % Energía total = -GMm/2a (constante)
-    E_total = -G_val * M_sol / (2 * a_tierra);  % Por unidad de masa
+    % Convertir a double para evitar problemas con printf
+    E_total = double(-G_val * M_sol / (2 * a_tierra));  % Por unidad de masa
+    v_circular = double(sqrt(G_val * M_sol / a_tierra));
 
     printf('  Energía orbital específica: %.1e J/kg\n', E_total);
-    printf('  Velocidad circular a 1 UA: %.1f km/s\n', sqrt(G_val * M_sol / a_tierra)/1000);
+    printf('  Velocidad circular a 1 UA: %.1f km/s\n', v_circular/1000);
+
+    % Energía cinética y potencial en perihelio/afelio
+    r_peri = a_tierra * (1 - e_tierra);
+    r_afe = a_tierra * (1 + e_tierra);
+
+    E_pot_peri = double(-G_val * M_sol / r_peri);
+    E_pot_afe = double(-G_val * M_sol / r_afe);
+
+    E_cin_peri = double(0.5 * v_peri_num^2);
+    E_cin_afe = double(0.5 * v_afe_num^2);
+
+    printf('  Verificación conservación energía:\n');
+    printf('    Perihelio: Ecin=%.1e J/kg, Epot=%.1e J/kg, Total=%.1e J/kg\n', ...
+           E_cin_peri, E_pot_peri, E_cin_peri + E_pot_peri);
+    printf('    Afelio:    Ecin=%.1e J/kg, Epot=%.1e J/kg, Total=%.1e J/kg\n', ...
+           E_cin_afe, E_pot_afe, E_cin_afe + E_pot_afe);
 
     printf('\n✅ Demostración completada\n');
 endfunction

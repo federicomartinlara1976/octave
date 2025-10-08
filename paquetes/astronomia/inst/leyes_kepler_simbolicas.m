@@ -1,11 +1,15 @@
 function [T_sym, v_sym, E_sym] = leyes_kepler_simbolicas()
 % LEYES_KEPLER_SIMBÓLICAS Define las leyes de Kepler de forma simbólica
 
-    syms a T G M positive  % Semieje, período, constante G, masa central
-    syms e n E t P positive % Excentricidad, movimiento medio, anomalía excéntrica, tiempo, período
+    % Definir todas las variables simbólicas de una vez
+    syms a T G M e n E t P real
+    assume([a T G M e n E t P], 'positive')
+
+    % Usar pi simbólico en lugar de pi numérico
+    pi_sym = sym('pi');
 
     % Tercera Ley de Kepler (forma general)
-    T_sym = T == 2*pi*sqrt(a^3/(G*M));
+    T_sym = T == 2*pi_sym*sqrt(a^3/(G*M));
 
     % Velocidad orbital en diferentes puntos
     v_perihelio = sqrt(G*M*(1+e)/(a*(1-e)));  % Perihelio
