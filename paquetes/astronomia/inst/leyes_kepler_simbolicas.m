@@ -1,5 +1,5 @@
 function [T_sym, v_sym, E_sym] = leyes_kepler_simbolicas()
-% LEYES_KEPLER_SIMBOLICAS Define las leyes de Kepler de forma simbólica
+% LEYES_KEPLER_SIMBÓLICAS Define las leyes de Kepler de forma simbólica
 
     syms a T G M positive  % Semieje, período, constante G, masa central
     syms e n E t P positive % Excentricidad, movimiento medio, anomalía excéntrica, tiempo, período
@@ -8,8 +8,8 @@ function [T_sym, v_sym, E_sym] = leyes_kepler_simbolicas()
     T_sym = T == 2*pi*sqrt(a^3/(G*M));
 
     % Velocidad orbital en diferentes puntos
-    v_perihelio = sqrt(G*M*(1+e)/a/(1-e));  % Perihelio
-    v_afelio = sqrt(G*M*(1-e)/a/(1+e));     % Afelio
+    v_perihelio = sqrt(G*M*(1+e)/(a*(1-e)));  % Perihelio
+    v_afelio = sqrt(G*M*(1-e)/(a*(1+e)));     % Afelio
     v_sym = [v_perihelio, v_afelio];
 
     % Ecuación de Kepler: M = E - e*sin(E)
@@ -18,7 +18,9 @@ function [T_sym, v_sym, E_sym] = leyes_kepler_simbolicas()
     E_sym = kepler_eq;
 
     printf('Leyes de Kepler definidas simbólicamente:\n');
-    printf('1. Tercera Ley: %s\n', char(T_sym));
-    printf('2. Velocidades: Perihelio=%s, Afelio=%s\n', char(v_perihelio), char(v_afelio));
-    printf('3. Ecuación de Kepler: %s\n', char(kepler_eq));
+    printf('1. Tercera Ley: T = 2π√(a³/GM)\n');
+    printf('2. Velocidades orbitales:\n');
+    printf('   - Perihelio: v = √[GM(1+e)/a(1-e)]\n');
+    printf('   - Afelio:    v = √[GM(1-e)/a(1+e)]\n');
+    printf('3. Ecuación de Kepler: M = E - e·sin(E)\n');
 endfunction

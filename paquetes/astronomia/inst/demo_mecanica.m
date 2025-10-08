@@ -7,25 +7,70 @@ function demo_mecanica()
     printf('\n1. LEYES DE KEPLER SIMBÓLICAS:\n');
     [T_sym, v_sym, E_sym] = leyes_kepler_simbolicas();
 
-    % 2. Sustituir valores numéricos (Tierra)
-    G_val = 6.67430e-11;  % m^3 kg^-1 s^-2
-    M_sol = 1.989e30;     % kg
-    a_tierra = 1.496e11;  % m
+    % 2. Definir variables simbólicas para la sustitución
+    syms G M a e T positive
 
-    T_num = solve(subs(T_sym, [G, M, a], [G_val, M_sol, a_tierra]), T);
-    printf('\nPeríodo orbital terrestre: %.0f segundos (%.2f años)\n', ...
-           double(T_num), double(T_num)/(365.25*24*3600));
+    % 3. Sustituir valores numéricos (Tierra)
+    G_val = sym('6.67430e-11');  % m^3 kg^-1 s^-2
+    M_sol = sym('1.989e30');     % kg
+    a_tierra = sym('1.496e11');  % m
+    e_tierra = sym('0.0167');    % Excentricidad Tierra
 
-    % 3. Velocidades orbitales
-    v_peri_num = double(subs(v_sym(1), [G, M, a, e], [G_val, M_sol, a_tierra, 0.0167]));
-    v_afe_num = double(subs(v_sym(2), [G, M, a, e], [G_val, M_sol, a_tierra, 0.0167]));
-    printf('Velocidad Tierra: Perihelio=%.1f km/s, Afelio=%.1f km/s\n', ...
-           v_peri_num/1000, v_afe_num/1000);
+    % Calcular período orbital
+    T_sol = solve(T_sym, T);  % Despejar T
+    T_num = double(subs(T_sol, {G, M, a}, {G_val, M_sol, a_tierra}));
 
-    % 4. Resolver ecuación de Kepler
+    printf('\nPeríodo orbital terrestre:\n');
+    printf('  Teórico: %.0f segundos\n', T_num);
+    printf('  Equivalente: %.2f años\n', T_num/(365.25*24*3600));
+    printf('  Real: 365.25 días (diferencia: %.4f años)\n', T_num/(365.25*24*3600) - 1);
+
+    % 4. Velocidades orbitales
+    v_peri_num = double(subs(v_sym(1), {G, M, a, e}, {G_val, M_sol, a_tierra, e_tierra}));
+    v_afe_num = double(subs(v_sym(2), {G, M, a, e}, {G_val, M_sol, a_tierra, e_tierra}));
+
+    printf('\nVelocidades orbitales terrestres:\n');
+    printf('  Perihelio: %.1f km/s\n', v_peri_num/1000);
+    printf('  Afelio: %.1f km/s\n', v_afe_num/1000);
+    printf('  Diferencia: %.1f km/s\n', (v_peri_num - v_afe_num)/1000);
+
+    % 5. Resolver ecuación de Kepler
     printf('\n2. ECUACIÓN DE KEPLER:\n');
-    e_val = 0.1;
-    M_val = deg2rad(45);  % 45° anomalía media
-    E_sol = solve(subs(E_sym, [e, M_angle], [e_val, M_val]), E);
-    printf('Anomalía excéntrica para M=45°, e=0.1: %.2f°\n', rad2deg(double(E_sol)));
+    syms E_val M_val e_val
+
+    % Definir ecuación
+    kepler_eq = M_val == E_val - e_val * sin(E_val);
+
+    % Caso 1: Anomalía media de 45°, excentricidad 0.1
+    M_45 = deg2rad(45);
+    e_01 = 0.1;
+
+    % Resolver numéricamente
+    E_sol_45 = fsolve(@(E) E - e_01*sin(E) - M_45, M_45);
+
+    printf('  Para M=45°, e=0.1:\n');
+    printf('    Anomalía excéntrica: %.2f°\n', rad2deg(E_sol_45));
+    printf('    Diferencia E-M: %.2f°\n', rad2deg(E_sol_45 - M_45));
+
+    % Caso 2: Anomalía media de 90°, excentricidad 0.5 (órbita más excéntrica)
+    M_90 = deg2rad(90);
+    e_05 = 0.5;
+    E_sol_90 = fsolve(@(E) E - e_05*sin(E) - M_90, M_90);
+
+    printf('  Para M=90°, e=0.5:\n');
+    printf('    Anomalía excéntrica: %.2f°\n', rad2deg(E_sol_90));
+    printf('    Diferencia E-M: %.2f°\n', rad2deg(E_sol_90 - M_90));
+
+    % 6. Demostración de conservación de energía
+    printf('\n3. ENERGÍA ORBITAL:\n');
+    r_peri = a_tierra * (1 - e_tierra);  % Perihelio
+    r_afe = a_tierra * (1 + e_tierra);   % Afelio
+
+    % Energía total = -GMm/2a (constante)
+    E_total = -G_val * M_sol / (2 * a_tierra);  % Por unidad de masa
+
+    printf('  Energía orbital específica: %.1e J/kg\n', E_total);
+    printf('  Velocidad circular a 1 UA: %.1f km/s\n', sqrt(G_val * M_sol / a_tierra)/1000);
+
+    printf('\n✅ Demostración completada\n');
 endfunction
