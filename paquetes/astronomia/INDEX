@@ -3,4 +3,7 @@ coordinates >> coordenadas.oct
 time >> tiempo.oct
 conversions >> conversiones.oct
 planets >> planetas.oct
+celestialmech >> mecanica_celeste.oct
+references >> sistemas_referencia.oct
+perturbations >> perturbaciones.oct
 utils >> utilidades.oct
