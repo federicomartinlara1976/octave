@@ -8,4 +8,5 @@ function ejecutar_demo()
   demo_planetas();
   demo_mecanica();
   demo_utilidades();
+  demo_efemerides();
 endfunction
