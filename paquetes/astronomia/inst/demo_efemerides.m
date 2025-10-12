@@ -32,11 +32,15 @@ function demo_efemerides()
   try
     [edad, nombre_fase, iluminacion] = fase_lunar(fecha_hoy);
     [ra_luna, dec_luna, dist_luna, fase] = posicion_luna(fecha_hoy);
-    [salida_luna, puesta_luna] = salida_puesta_luna(fecha_hoy, lat_madrid, lon_madrid);
 
+    printf('   Fase: %s (%.0f%% iluminada)\n', nombre_fase, iluminacion);
+    printf('   Posición: RA=%.2fh, Dec=%.2f°, Dist=%.0f km\n', ...
+           ra_luna, dec_luna, dist_luna);
+
+    [salida_luna, puesta_luna] = salida_puesta_luna(fecha_hoy, lat_madrid, lon_madrid);
     if ~isnan(salida_luna)
-      printf('   Salida Luna: %s\n', datestr(salida_luna, 'HH:MM:SS'));
-      printf('   Puesta Luna:  %s\n', datestr(puesta_luna, 'HH:MM:SS'));
+      printf('   Salida: %s\n', datestr(salida_luna, 'HH:MM:SS'));
+      printf('   Puesta: %s\n', datestr(puesta_luna, 'HH:MM:SS'));
     endif
 
   catch err
