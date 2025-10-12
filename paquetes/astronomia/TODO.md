@@ -1,8 +1,8 @@
 # Posibles ampliaciones futuras:
 
 ### Módulos adicionales:
-* efemerides.m - Efemérides solares/lunares más precisas (Completado 12/10/2025)
-* constelaciones.m - Identificación de constelaciones
+* efemerides.m - Efemérides solares/lunares más precisas (Completado 12/10/2025 - Versión 1.1.0)
+* constelaciones.m - Identificación de constelaciones (Versión 1.2.0)
 * catalogos.m - Acceso a catálogos estelares básicos
 * observacion.m - Herramientas de planificación observacional
 * orbitas.m - Cálculos orbitales más avanzados
