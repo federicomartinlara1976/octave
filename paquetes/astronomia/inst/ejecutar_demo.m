@@ -9,4 +9,5 @@ function ejecutar_demo()
   demo_mecanica();
   demo_utilidades();
   demo_efemerides();
+  demo_constelaciones();
 endfunction
