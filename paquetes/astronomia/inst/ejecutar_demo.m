@@ -10,4 +10,5 @@ function ejecutar_demo()
   demo_utilidades();
   demo_efemerides();
   demo_constelaciones();
+  demo_visualizacion();
 endfunction
