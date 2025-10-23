@@ -21,12 +21,12 @@ function dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelacion
       if ~isempty(estrellas_const)
         % Determinar color y tamaño según si está destacada
         if any(strcmp(constelaciones_destacadas, const.nombre))
-          color = 'red';
+          color = [1, 0, 0];
           tamano = 8;
           estilo_linea = '-';
           ancho_linea = 2;
         else
-          color = 'blue';
+          color = [0, 0, 1];
           tamano = 4;
           estilo_linea = ':';
           ancho_linea = 1;
@@ -41,8 +41,7 @@ function dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelacion
         tamanos = 8.0 - magnitudes * 1.5;
         tamanos = max(tamanos, 2);  % Mínimo tamaño
         
-        scatter(ras, decs, tamanos, color, 'filled', ...
-               'displayname', const.nombre);
+        scatter(ras, decs, tamanos, color, 'filled', 'displayname', const.nombre);
         
         % Dibujar líneas de la constelación si está destacada
         if any(strcmp(constelaciones_destacadas, const.nombre))
