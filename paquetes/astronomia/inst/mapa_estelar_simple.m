@@ -1,9 +1,6 @@
 function mapa_estelar_simple(fecha, lat, lon, magnitud_limite, constelaciones_destacadas)
-% MAPA_ESTELAR_SIMPLE Genera mapa estelar en coordenadas - VERSIÓN MEJORADA
+% MAPA_ESTELAR_SIMPLE Genera mapa estelar en coordenadas - VERSIÓN ANCHA COMPLETA
 %   mapa_estelar_simple(fecha, lat, lon, magnitud_limite, constelaciones_destacadas)
-%
-%   Ejemplo:
-%     mapa_estelar_simple(now(), 40.4, -3.7, 3.0, {'Orion', 'Ursa Major'})
 
   if nargin < 4
     magnitud_limite = 3.5;
@@ -17,30 +14,31 @@ function mapa_estelar_simple(fecha, lat, lon, magnitud_limite, constelaciones_de
   printf('Ubicación: %.1f°N, %.1f°E\n', lat, lon);
   printf('Magnitud límite: %.1f\n\n', magnitud_limite);
 
-  % Configurar figura MÁS ANCHA
+  % Configurar figura MUY ANCHA
   fig = figure('Name', 'Mapa Estelar Simple', 'NumberTitle', 'off', ...
-               'Position', [100, 100, 1400, 700]);
+               'Position', [50, 100, 1600, 600]);  % Más ancha que alta
+
+  % Configurar ejes para ocupar casi toda la figura
+  ax = axes('Parent', fig, 'Position', [0.05, 0.12, 0.90, 0.80]);  % [left, bottom, width, height]
   
-  % Configurar ejes con mejor relación de aspecto
-  ax = axes('Parent', fig);
   hold(ax, 'on');
   grid(ax, 'on');
   
-  % Configurar límites y aspecto de ejes
+  % Configurar límites - FORZAR relación de aspecto ancha
   xlim(ax, [0, 24]);
   ylim(ax, [-90, 90]);
-  set(ax, 'XDir', 'reverse');  % Convención astronómica (Este a la izquierda)
+  set(ax, 'XDir', 'reverse');  % Convención astronómica
   
   % Mejorar los ticks
-  set(ax, 'XTick', 0:2:24, 'YTick', -90:30:90);
-  set(ax, 'GridAlpha', 0.3, 'GridLineStyle', '-');
+  set(ax, 'XTick', 0:1:24, 'YTick', -90:15:90);  % Más ticks para mejor referencia
+  set(ax, 'GridAlpha', 0.2, 'GridLineStyle', '-');
   
-  % Etiquetas de ejes más grandes
+  % Etiquetas de ejes
   xlabel(ax, 'Ascensión Recta (horas)', 'FontSize', 12, 'FontWeight', 'bold');
   ylabel(ax, 'Declinación (grados)', 'FontSize', 12, 'FontWeight', 'bold');
   
-  % Título mejorado
-  title(ax, sprintf('Mapa Estelar - %s | Lat: %.1f°N', datestr(fecha), lat), ...
+  % Título
+  title(ax, sprintf('Mapa Estelar - %s | Lat: %.1f°N, Lon: %.1f°E', datestr(fecha), lat, lon), ...
         'FontSize', 14, 'FontWeight', 'bold');
   
   % Calcular tiempo sidéreo local
@@ -49,28 +47,31 @@ function mapa_estelar_simple(fecha, lat, lon, magnitud_limite, constelaciones_de
   % Dibujar constelaciones visibles
   dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelaciones_destacadas);
   
-  % Dibujar líneas de referencia MEJORADAS
-  dibujar_referencias_mejoradas();
+  % Dibujar líneas de referencia
+  dibujar_referencias_muy_anchas();
   
-  % Marcar posición actual del meridiano (más visible)
-  plot(ax, [lst lst], [-90 90], 'r-', 'linewidth', 2.5, ...
-       'displayname', 'Meridiano Local');
+  % Meridiano local muy visible
+  plot(ax, [lst lst], [-90 90], 'r-', 'linewidth', 3, ...
+       'displayname', sprintf('Meridiano (LST: %.1fh)', lst));
   
-  % Añadir línea del horizonte visible
+  % Añadir horizonte visible
   dibujar_horizonte_visible(lst, lat);
   
-  % Añadir información de la ubicación
-  text(ax, 0.02, 0.98, sprintf('LST: %.2fh | Lon: %.1f°', lst, lon), ...
-       'Units', 'normalized', 'FontSize', 10, 'BackgroundColor', 'white', ...
-       'EdgeColor', 'black', 'VerticalAlignment', 'top');
+  % Información adicional en texto
+  text(ax, 0.5, -80, sprintf('LST: %.2f h | Magnitud límite: %.1f', lst, magnitud_limite), ...
+       'HorizontalAlignment', 'center', 'FontSize', 10, 'BackgroundColor', 'white', ...
+       'EdgeColor', 'black', 'FontWeight', 'bold');
   
-  % Mejorar la leyenda
-  legend(ax, 'show', 'location', 'northeastoutside', 'FontSize', 9);
+  % Solo mostrar leyenda si hay elementos
+  if ~isempty(get(ax, 'Children'))
+    legend(ax, 'show', 'location', 'northeastoutside', 'FontSize', 9, 'Box', 'off');
+  endif
   
-  % Ajustar relación de aspecto para mejor visualización
-  set(ax, 'DataAspectRatio', [1, 1.5, 1]);
+  % FORZAR relación de aspecto ancha - ESTA ES LA CLAVE
+  axis(ax, 'normal');  % Quitar 'axis equal' que comprime
+  set(ax, 'PlotBoxAspectRatio', [2.4, 1, 1]);  % 2.4:1 relación ancha
   
   hold(ax, 'off');
   
-  printf('✅ Mapa estelar generado (figura mejorada)\n');
+  printf('✅ Mapa estelar generado (versión ultra ancha)\n');
 endfunction

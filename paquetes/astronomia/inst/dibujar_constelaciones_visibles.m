@@ -45,6 +45,7 @@ function dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelacion
         
         % Dibujar líneas de la constelación si está destacada
         if any(strcmp(constelaciones_destacadas, const.nombre))
+          printf('Dibujar figura para %s\n', const.nombre);
           dibujar_figura_constelacion(const.nombre, ras, decs, color, estilo_linea, ancho_linea);
         endif
         
@@ -52,7 +53,7 @@ function dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelacion
         for j = 1:length(estrellas_const)
           if estrellas_const(j).magnitud < 1.0
             text(ras(j), decs(j) + 2, estrellas_const(j).nombre, ...
-                 'fontsize', 8, 'horizontalalignment', 'center');
+                 'fontsize', 14, 'horizontalalignment', 'center');
           endif
         endfor
       endif
