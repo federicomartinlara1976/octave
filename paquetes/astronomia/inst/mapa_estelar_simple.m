@@ -49,10 +49,11 @@ function mapa_estelar_simple(fecha, lat, lon, magnitud_limite, constelaciones_de
   
   % Dibujar líneas de referencia
   dibujar_referencias_muy_anchas();
+  dibujar_referencias();
   
   % Meridiano local muy visible
   plot(ax, [lst lst], [-90 90], 'r-', 'linewidth', 3, ...
-       'displayname', sprintf('Meridiano (LST: %.1fh)', lst));
+       'DisplayName', sprintf('Meridiano Local (LST: %.1fh)', lst));
   
   % Añadir horizonte visible
   dibujar_horizonte_visible(lst, lat);
@@ -62,9 +63,23 @@ function mapa_estelar_simple(fecha, lat, lon, magnitud_limite, constelaciones_de
        'HorizontalAlignment', 'center', 'FontSize', 10, 'BackgroundColor', 'white', ...
        'EdgeColor', 'black', 'FontWeight', 'bold');
   
-  % Solo mostrar leyenda si hay elementos
+  % AHORA SÍ llamar legend después de dibujar TODO
   if ~isempty(get(ax, 'Children'))
-    legend(ax, 'show', 'location', 'northeastoutside', 'FontSize', 9, 'Box', 'off');
+    % Crear leyenda manualmente con elementos específicos
+    legend_elements = [
+      findobj(ax, 'DisplayName', 'Ecuador');
+      findobj(ax, 'DisplayName', 'Trópicos'); 
+      findobj(ax, 'DisplayName', 'Círculos Polares');
+      findobj(ax, 'DisplayName', 'Meridiano*')  % Usa el patrón correcto
+    ];
+  
+    if length(legend_elements) >= 2
+      legend(ax, legend_elements, 'location', 'northeastoutside', ...
+           'FontSize', 12, 'Box', 'off');
+    else
+      legend(ax, 'show', 'location', 'northeastoutside', ...
+           'FontSize', 12, 'Box', 'off', 'NumColumns', 1);
+    endif
   endif
   
   % FORZAR relación de aspecto ancha - ESTA ES LA CLAVE
