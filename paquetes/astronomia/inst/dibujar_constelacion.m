@@ -5,7 +5,7 @@ function dibujar_constelacion(nombre_constelacion, fecha, lat, lon)
   printf('Dibujando constelación: %s\n', nombre_constelacion);
   
   % Verificar que la constelación existe
-  constelaciones = obtener_limites_constelaciones();
+  constelaciones = obtener_limites_constelaciones(true);
   const_idx = find(strcmp({constelaciones.nombre}, nombre_constelacion));
   
   if isempty(const_idx)
@@ -16,11 +16,12 @@ function dibujar_constelacion(nombre_constelacion, fecha, lat, lon)
   const = constelaciones(const_idx);
   
   % Configurar figura
-  figure('name', sprintf('Constelación: %s', nombre_constelacion), ...
+  fig = figure('name', sprintf('Constelación: %s', nombre_constelacion), ...
          'numbertitle', 'off');
-  hold on;
-  grid on;
-  axis equal;
+  % Configurar ejes para ocupar buen espacio
+  ax = axes('Parent', fig, 'Position', [0.08, 0.12, 0.88, 0.80]);
+  hold(ax, 'on');
+  grid(ax, 'on');
   
   % Área de visualización centrada en la constelación
   ra_centro = (const.ra_min + const.ra_max) / 2 / 15;
@@ -29,12 +30,15 @@ function dibujar_constelacion(nombre_constelacion, fecha, lat, lon)
   margen_ra = (const.ra_max - const.ra_min) / 15 * 0.3;
   margen_dec = (const.dec_max - const.dec_min) * 0.3;
   
-  xlim([ra_centro - margen_ra, ra_centro + margen_ra]);
-  ylim([dec_centro - margen_dec, dec_centro + margen_dec]);
+  xlim(ax, [ra_centro - margen_ra, ra_centro + margen_ra]);
+  ylim(ax, [dec_centro - margen_dec, dec_centro + margen_dec]);
   
-  xlabel('Ascensión Recta (horas)');
-  ylabel('Declinación (grados)');
-  title(sprintf('Constelación: %s - %s', nombre_constelacion, datestr(fecha)));
+  xlabel(ax, 'Ascensión Recta (horas)');
+  ylabel(ax, 'Declinación (grados)');
+  title(ax, sprintf('Constelación: %s - %s', nombre_constelacion, datestr(fecha)));
+  
+  % Mejorar grid
+  set(ax, 'GridAlpha', 0.3, 'GridLineStyle', '-');
   
   % Obtener estrellas de esta constelación
   estrellas = obtener_estrellas_brillantes();
@@ -82,6 +86,12 @@ function dibujar_constelacion(nombre_constelacion, fecha, lat, lon)
        length(estrellas_const), min(magnitudes), porcentaje*100), ...
        'units', 'normalized', 'verticalalignment', 'top', ...
        'backgroundcolor', 'white', 'edgecolor', 'black');
+       
+  % APLICAR RELACIÓN DE ASPECTO ANCHA
+  axis(ax, 'normal');  % Quitar 'axis equal' que comprime
+  set(ax, 'PlotBoxAspectRatio', [2.4, 1, 1]);  % 2.4:1 relación ancha
+  
+  hold(ax, 'off');
   
   printf('✅ Constelación %s dibujada (%d estrellas)\n', nombre_constelacion, length(estrellas_const));
 endfunction

@@ -1,7 +1,7 @@
 function dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelaciones_destacadas)
 % DIBUJAR_CONSTELACIONES_VISIBLES Dibuja constelaciones en el mapa
 
-  constelaciones = obtener_limites_constelaciones();
+  constelaciones = obtener_limites_constelaciones(true);
   estrellas = obtener_estrellas_brillantes();
   
   % Filtrar estrellas por magnitud

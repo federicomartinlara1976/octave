@@ -16,7 +16,7 @@ function demo_visualizacion()
   
   % 2. Constelación específica
   printf('\n2. DIBUJANDO CONSTELACIÓN ESPECÍFICA...\n');
-  dibujar_constelacion('Orion', fecha, lat, lon);
+  dibujar_constelacion('Cassiopeia', fecha, lat, lon);
   
   % 3. Posiciones en tiempo real
   printf('\n3. CALCULANDO POSICIONES ACTUALES...\n');

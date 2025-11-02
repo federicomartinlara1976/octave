@@ -1,4 +1,4 @@
-function dibujar_referencias()
+function dibujar_referencias_muy_anchas()
   % DIBUJAR_REFERENCIAS_MUY_ANCHAS - Optimizado para visualización ancha
 
   ax = gca;

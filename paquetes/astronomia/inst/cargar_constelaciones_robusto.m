@@ -3,6 +3,8 @@ function datos = cargar_constelaciones_robusto()
   
   % 1. PRIORIDAD: Archivo CSV local generado
   archivo_csv = 'datos/constelaciones_iau_completas.csv';
+  printf('🔭 Cargando datos de constelaciones de %s...\n', archivo_csv);
+  
   if exist(archivo_csv, 'file')
     printf('   Leyendo archivo local CSV...\n');
     datos = leer_csv_constelaciones(archivo_csv);
