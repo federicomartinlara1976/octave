@@ -16,13 +16,13 @@ function generar_estrellas_brillantes_completas()
     'Hatysa', 'Orion', 5.6275, -5.9094, 2.75, 'O9III', 'Iota Orionis';
     
     % === URSA MAJOR ===
-    'Alioth', 'Ursa Major', 12.9005, 55.9598, 1.76, 'A0pCr', 'Epsilon Ursae Majoris';
     'Dubhe', 'Ursa Major', 11.0621, 61.7510, 1.79, 'K0III', 'Alpha Ursae Majoris';
-    'Alkaid', 'Ursa Major', 13.7923, 49.3133, 1.85, 'B3V', 'Eta Ursae Majoris';
-    'Mizar', 'Ursa Major', 13.3988, 54.9254, 2.23, 'A2V', 'Zeta Ursae Majoris';
     'Merak', 'Ursa Major', 11.0307, 56.3824, 2.37, 'A1V', 'Beta Ursae Majoris';
     'Phecda', 'Ursa Major', 11.8972, 53.6948, 2.44, 'A0V', 'Gamma Ursae Majoris';
     'Megrez', 'Ursa Major', 12.2571, 57.0326, 3.32, 'A3V', 'Delta Ursae Majoris';
+    'Alioth', 'Ursa Major', 12.9005, 55.9598, 1.76, 'A0pCr', 'Epsilon Ursae Majoris';
+    'Mizar', 'Ursa Major', 13.3988, 54.9254, 2.23, 'A2V', 'Zeta Ursae Majoris';
+    'Alkaid', 'Ursa Major', 13.7923, 49.3133, 1.85, 'B3V', 'Eta Ursae Majoris';
     
     % === CYGNUS ===
     'Deneb', 'Cygnus', 20.6905, 45.2800, 1.25, 'A2Ia', 'Alpha Cygni';

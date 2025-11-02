@@ -29,7 +29,7 @@ function dibujar_constelaciones_visibles(lst, lat, magnitud_limite, constelacion
           color = [0, 0, 1];
           tamano = 4;
           estilo_linea = ':';
-          ancho_linea = 1;
+          ancho_linea = 0.5;
         endif
         
         % Dibujar estrellas

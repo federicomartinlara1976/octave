@@ -67,12 +67,13 @@ function dibujar_constelacion(nombre_constelacion, fecha, lat, lon)
   
   % Dibujar estrellas
   for i = 1:length(estrellas_const)
+    printf("Dibujando %s\n", nombres{i});
     scatter(ras(i), decs(i), tamanos(i), colores{i}, 'filled');
     
     % Etiquetar estrellas
-    text(ras(i), decs(i) + 0.5, nombres{i}, ...
-         'fontsize', 8, 'horizontalalignment', 'center', ...
-         'color', colores{i});
+    %text(ras(i), decs(i) + 0.5, nombres{i}, ...
+    %     'fontsize', 10, 'horizontalalignment', 'center', ...
+    %     'color', colores{i});
   endfor
   
   % Dibujar figura de la constelación
