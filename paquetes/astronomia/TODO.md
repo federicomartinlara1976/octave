@@ -37,6 +37,7 @@
 * Manejo de diferentes sistemas de coordenadas
 * Interfaz gráfica básica para cálculos comunes
 * Exportación de datos a formatos estándar
+* Funciones básicas de cálculo escritas en C++ (archivos .oct)
 
 ### Integración con datos externos:
 * Conexión con APIs astronómicas públicas
