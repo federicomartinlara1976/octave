@@ -1,30 +1,21 @@
 #include <octave/oct.h>
-#include <deg2rad.h>
-#include <rad2deg.h>
+#include <altaz2hadec.h>
 
-DEFUN_DLD (deg2hms, args, , "Convierte coordenadas altazimutales a horarias - Optimizado para C++")
+DEFUN_DLD (altaz2hadec, args, , "Convierte coordenadas altazimutales a horarias - Optimizado C++")
 {
   	// Verificar argumentos
   	if (args.length() != 3)
     		print_usage();
 
   	double alt = args(0).double_value();
-  	double az = args(0).double_value();
-  	double lat = args(0).double_value();
+  	double az = args(1).double_value();
+  	double lat = args(2).double_value();
   	
-  	double alt_rad = _deg2rad(alt);
-    	double az_rad = _deg2rad(az);
-    	double lat_rad = _deg2rad(lat);
-    
-    	double dec_rad = asin(sin(alt_rad) * sin(lat_rad) + cos(alt_rad) * cos(lat_rad) * cos(az_rad));
-    	double ha_rad = atan2(-sin(az_rad) * cos(alt_rad), -cos(az_rad) * sin(lat_rad) * cos(alt_rad) + sin(alt_rad) * cos(lat_rad));
-    
-    	double ha = _rad2deg(ha_rad);
-    	double dec = _rad2deg(dec_rad);
+  	std::tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
     
     	RowVector resultado(2);
-    	resultado(0) = ha;
-    	resultado(1) = dec;
+    	resultado(0) = std::get<0>(hadec);
+    	resultado(1) = std::get<1>(hadec);
     
     	return octave_value(resultado);
 }
