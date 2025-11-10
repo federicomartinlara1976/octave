@@ -7,10 +7,10 @@ function demo_coordenadas()
     lat = 40.4; lon = -3.7;
     
     printf('1. Objeto en el cenit:\n');
-    [ha, dec] = altaz2hadec(90, 0, lat);
-    printf('   HA = %.2f°, Dec = %.2f°\n', ha, dec);
+    result = altaz2hadec(90, 0, lat);
+    printf('   HA = %.2f°, Dec = %.2f°\n', result(1), result(2));
     
     printf('2. Conversión completa:\n');
-    [ra, dec] = altaz2radec(45, 180, lat, lon, now());
-    printf('   RA = %.2fh, Dec = %.2f°\n', ra, dec);
+    result = altaz2radec(45, 180, lat, lon, now());
+    printf('   RA = %.2fh, Dec = %.2f°\n', result(1), result(2));
 endfunction 

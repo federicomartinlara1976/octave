@@ -19,6 +19,7 @@ TARGETS := $(BUILD_DIR)/deg2hms.oct \
 	$(BUILD_DIR)/hadec2radec.oct \
 	$(BUILD_DIR)/calcular_lst.oct \
 	$(BUILD_DIR)/calcular_altura.oct \
+	$(BUILD_DIR)/altura_objeto.oct \
 	$(BUILD_DIR)/altaz2hadec.oct \
 	$(BUILD_DIR)/altaz2radec.oct 
 
@@ -57,6 +58,10 @@ $(BUILD_DIR)/calcular_lst.oct: $(SRC_DIR)/calcular_lst.cc
 $(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
 	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
+# Regla para compilar altura_objeto
+$(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	
 # Regla para compilar altaz2hadec
 $(BUILD_DIR)/altaz2hadec.oct: $(SRC_DIR)/altaz2hadec.cc
 	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
@@ -91,7 +96,9 @@ test: all
 	               result = deg2rad(45.0); \
 	               printf('45.0° = %.2f\\n', result(1)); \
 	               result = rad2deg(0.79); \
-	               printf('0.79 rad = %.2f\\n', result(1));"
+	               printf('0.79 rad = %.2f\\n', result(1)); \
+	               result = altaz2hadec(90, 0, 40.4); \
+	               printf('HA = %.2f°, Dec = %.2f°\n', result(1), result(2));"
 
 # Información del sistema
 info:
