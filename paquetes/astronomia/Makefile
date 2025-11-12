@@ -18,10 +18,12 @@ TARGETS := $(BUILD_DIR)/deg2hms.oct \
 	$(BUILD_DIR)/rad2deg.oct \
 	$(BUILD_DIR)/hadec2radec.oct \
 	$(BUILD_DIR)/calcular_lst.oct \
-	$(BUILD_DIR)/calcular_altura.oct \
 	$(BUILD_DIR)/fecha_juliana.oct \
+	$(BUILD_DIR)/esfericas_a_cartesianas.oct \
+	$(BUILD_DIR)/calcular_altura.oct \
 	$(BUILD_DIR)/altura_objeto.oct \
 	$(BUILD_DIR)/altaz2hadec.oct \
+	$(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct \
 	$(BUILD_DIR)/altaz2radec.oct 
 
 # Todos los objetivos por defecto
@@ -55,13 +57,17 @@ $(BUILD_DIR)/hadec2radec.oct: $(SRC_DIR)/hadec2radec.cc
 $(BUILD_DIR)/calcular_lst.oct: $(SRC_DIR)/calcular_lst.cc
 	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_calcular_lst.cc
 	
-# Regla para compilar calcular_altura
-$(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
-	
 # Regla para compilar fecha_juliana
 $(BUILD_DIR)/fecha_juliana.oct: $(SRC_DIR)/fecha_juliana.cc
 	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc
+	
+# Regla para compilar esfericas_a_cartesianas
+$(BUILD_DIR)/esfericas_a_cartesianas.oct: $(SRC_DIR)/esfericas_a_cartesianas.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_esfericas_a_cartesianas.cc $(SRC_DIR)/_deg2rad.cc 
+	
+# Regla para compilar calcular_altura
+$(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar altura_objeto
 $(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
@@ -70,6 +76,10 @@ $(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
 # Regla para compilar altaz2hadec
 $(BUILD_DIR)/altaz2hadec.oct: $(SRC_DIR)/altaz2hadec.cc
 	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	
+# Regla para compilar coords_ecuatoriales_a_horizontales
+$(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct: $(SRC_DIR)/coords_ecuatoriales_a_horizontales.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_coords_ecuatoriales_a_horizontales.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar altaz2radec
 $(BUILD_DIR)/altaz2radec.oct: $(SRC_DIR)/altaz2radec.cc
