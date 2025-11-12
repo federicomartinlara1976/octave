@@ -19,6 +19,7 @@ TARGETS := $(BUILD_DIR)/deg2hms.oct \
 	$(BUILD_DIR)/hadec2radec.oct \
 	$(BUILD_DIR)/calcular_lst.oct \
 	$(BUILD_DIR)/calcular_altura.oct \
+	$(BUILD_DIR)/fecha_juliana.oct \
 	$(BUILD_DIR)/altura_objeto.oct \
 	$(BUILD_DIR)/altaz2hadec.oct \
 	$(BUILD_DIR)/altaz2radec.oct 
@@ -57,6 +58,10 @@ $(BUILD_DIR)/calcular_lst.oct: $(SRC_DIR)/calcular_lst.cc
 # Regla para compilar calcular_altura
 $(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
 	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	
+# Regla para compilar fecha_juliana
+$(BUILD_DIR)/fecha_juliana.oct: $(SRC_DIR)/fecha_juliana.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc
 	
 # Regla para compilar altura_objeto
 $(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
