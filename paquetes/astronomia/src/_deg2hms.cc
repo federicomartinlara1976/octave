@@ -1,5 +1,3 @@
-#include <cmath>
-#include <algorithm>
 #include <deg2hms.h>
 
 std::tuple<int, int, double> _deg2hms(double grados) {

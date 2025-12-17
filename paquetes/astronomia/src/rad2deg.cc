@@ -10,7 +10,7 @@ DEFUN_DLD (rad2deg, args, , "Convierte radianes a grados - Optimizado C++")
 
   	double radianes = args(0).double_value();
     
-	double resultado = _rad2deg(radianes);
+	double grados = _rad2deg(radianes);
     
-    	return octave_value(resultado);
+    	return octave_value(grados);
 }

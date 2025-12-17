@@ -12,10 +12,10 @@ DEFUN_DLD (esfericas_a_cartesianas, args, , "Conversión a coordenadas 3D - Opti
   	
   	std::tuple<double, double, double> xyz = _esfericas_a_cartesianas(azimuth, altura);
     
-    	RowVector resultado(2);
+    	RowVector resultado(3);
     	resultado(0) = std::get<0>(xyz);
     	resultado(1) = std::get<1>(xyz);
     	resultado(2) = std::get<2>(xyz);
-    
+    	
     	return octave_value(resultado);
 }

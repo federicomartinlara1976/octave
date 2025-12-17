@@ -11,7 +11,7 @@ DEFUN_DLD (calcular_lst, args, , "Calcula el Tiempo Sidéreo Local - Optimizado 
   	double fecha = args(0).double_value();
   	double longitud = args(1).double_value();
     
-	double resultado = _calcular_lst(fecha, longitud);
+	double tiempo_sidereo_local = _calcular_lst(fecha, longitud);
     
-    	return octave_value(resultado);
+    	return octave_value(tiempo_sidereo_local);
 }

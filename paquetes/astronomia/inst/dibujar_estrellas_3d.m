@@ -12,11 +12,16 @@ function dibujar_estrellas_3d(fecha, lat, lon)
     estrella = estrellas(i);
     
     % Convertir coordenadas ecuatoriales a horizontales
-    [azimuth, altura] = coords_ecuatoriales_a_horizontales(...
+    coordenadas = coords_ecuatoriales_a_horizontales(...
       estrella.ra, estrella.dec, lst, lat_rad);
+    azimuth = coordenadas(1); 
+    altura = coordenadas(2);
     
     % Convertir a coordenadas cartesianas 3D
-    [x, y, z] = esfericas_a_cartesianas(azimuth, altura);
+    cartesianas = esfericas_a_cartesianas(azimuth, altura);
+    x = cartesianas(1); 
+    y = cartesianas(2);
+    z = cartesianas(3); 
     
     % Tamaño según magnitud
     tamano = 10.0 - estrella.magnitud * 2.0;
