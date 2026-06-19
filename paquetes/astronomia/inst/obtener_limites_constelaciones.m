@@ -1,12 +1,16 @@
-function datos = obtener_limites_constelaciones()
-% OBTENER_LIMITES_CONSTELACIONES Sistema híbrido con caché, CSV y descarga
-
+function datos = obtener_limites_constelaciones(forzar_recarga)
+% OBTENER_LIMITES_CONSTELACIONES Sistema robusto con fallbacks
+  
   persistent constelaciones_cache;
-
-  if isempty(constelaciones_cache)
-    printf('🔭 Cargando datos de constelaciones...\n');
-    constelaciones_cache = cargar_constelaciones_hibrido();
+  
+  if nargin == 1 && forzar_recarga
+    constelaciones_cache = [];
+    printf('🔄 Forzando recarga de constelaciones...\n');
   endif
-
+  
+  if isempty(constelaciones_cache)
+    constelaciones_cache = cargar_constelaciones_robusto();
+  endif
+  
   datos = constelaciones_cache;
 endfunction
