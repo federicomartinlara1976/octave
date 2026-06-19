@@ -1,3 +1,3 @@
 function y = df(x)
-  y = 3*x^2 - 10*x + 7;
+  y = 1 + 2*exp(2*x);
 endfunction
