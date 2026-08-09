@@ -16,12 +16,12 @@ DEFUN_DLD (altaz2radec, args, , "Convierte directamente de alt/az a RA/Dec - Opt
   	double fecha = args(4).double_value();
   	
   	std::tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
-    	double lst = _calcular_lst(fecha, lon);
-    	std::tuple<double, double> radec = _hadec2radec(std::get<0>(hadec), std::get<1>(hadec), lst);
+    double lst = _calcular_lst(fecha, lon);
+    std::tuple<double, double> radec = _hadec2radec(std::get<0>(hadec), std::get<1>(hadec), lst);
     
-    	RowVector radec(2);
-    	radec(0) = std::get<0>(radec);
-    	radec(1) = std::get<1>(radec);
+    RowVector r_radec(2);
+    r_radec(0) = std::get<0>(radec);
+    r_radec(1) = std::get<1>(radec);
     
-    	return octave_value(radec);
+    return octave_value(r_radec);
 }

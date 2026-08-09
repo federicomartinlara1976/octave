@@ -12,9 +12,7 @@ INCLUDE_DIR := include
 BASE_DIR := .
 
 # Lista de objetivos (archivos .oct)
-TARGETS := $(BUILD_DIR)/kepler_period3.oct \
-	$(BUILD_DIR)/orbital_velocity.oct \
-	$(BUILD_DIR)/deg2hms.oct \
+TARGETS := $(BUILD_DIR)/deg2hms.oct \
 	$(BUILD_DIR)/hms2deg.oct \
 	$(BUILD_DIR)/deg2rad.oct \
 	$(BUILD_DIR)/rad2deg.oct \
@@ -36,12 +34,12 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 # Regla para compilar kepler_period3
-$(BUILD_DIR)/kepler_period3.oct: $(SRC_DIR)/kepler_period3.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $<
+#$(BUILD_DIR)/kepler_period3.oct: $(SRC_DIR)/kepler_period3.cc
+#	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $<
 	
 # Regla para compilar orbital_velocity
-$(BUILD_DIR)/orbital_velocity.oct: $(SRC_DIR)/orbital_velocity.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< 
+#$(BUILD_DIR)/orbital_velocity.oct: $(SRC_DIR)/orbital_velocity.cc
+#	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< 
 
 # Regla para compilar deg2hms
 $(BUILD_DIR)/deg2hms.oct: $(SRC_DIR)/deg2hms.cc
