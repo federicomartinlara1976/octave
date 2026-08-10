@@ -13,9 +13,9 @@ DEFUN_DLD (altaz2hadec, args, , "Convierte coordenadas altazimutales a horarias 
   	
   	std::tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
     
-    RowVector r_hadec(2);
-    r_hadec(0) = std::get<0>(hadec);
-    r_hadec(1) = std::get<1>(hadec);
+    RowVector resultado(2);
+    resultado(0) = std::get<0>(hadec);
+    resultado(1) = std::get<1>(hadec);
     
-    return octave_value(r_hadec);
+    return octave_value(resultado);
 }

@@ -9,6 +9,7 @@ DEBUG_FLAGS := -g -O0 -DDEBUG
 SRC_DIR := src
 BUILD_DIR := build
 INCLUDE_DIR := include
+INCLUDE_OCTAVE_DIR := /usr/include/actave-5.2.0
 BASE_DIR := .
 
 # Lista de objetivos (archivos .oct)
@@ -43,55 +44,55 @@ $(BUILD_DIR):
 
 # Regla para compilar deg2hms
 $(BUILD_DIR)/deg2hms.oct: $(SRC_DIR)/deg2hms.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2hms.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2hms.cc
 	
 # Regla para compilar hms2deg
 $(BUILD_DIR)/hms2deg.oct: $(SRC_DIR)/hms2deg.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_hms2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_hms2deg.cc
 	
 # Regla para compilar deg2rad
 $(BUILD_DIR)/deg2rad.oct: $(SRC_DIR)/deg2rad.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc
 	
 # Regla para compilar rad2deg
 $(BUILD_DIR)/rad2deg.oct: $(SRC_DIR)/rad2deg.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar hadec2radec
 $(BUILD_DIR)/hadec2radec.oct: $(SRC_DIR)/hadec2radec.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_hadec2radec.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_hadec2radec.cc
 	
 # Regla para compilar calcular_lst
 $(BUILD_DIR)/calcular_lst.oct: $(SRC_DIR)/calcular_lst.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_calcular_lst.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_calcular_lst.cc
 	
 # Regla para compilar fecha_juliana
 $(BUILD_DIR)/fecha_juliana.oct: $(SRC_DIR)/fecha_juliana.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc
 	
 # Regla para compilar esfericas_a_cartesianas
 $(BUILD_DIR)/esfericas_a_cartesianas.oct: $(SRC_DIR)/esfericas_a_cartesianas.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_esfericas_a_cartesianas.cc $(SRC_DIR)/_deg2rad.cc 
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_esfericas_a_cartesianas.cc $(SRC_DIR)/_deg2rad.cc 
 	
 # Regla para compilar calcular_altura
 $(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar altura_objeto
 $(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar altaz2hadec
 $(BUILD_DIR)/altaz2hadec.oct: $(SRC_DIR)/altaz2hadec.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar coords_ecuatoriales_a_horizontales
 $(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct: $(SRC_DIR)/coords_ecuatoriales_a_horizontales.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_coords_ecuatoriales_a_horizontales.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_coords_ecuatoriales_a_horizontales.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 	
 # Regla para compilar altaz2radec
 $(BUILD_DIR)/altaz2radec.oct: $(SRC_DIR)/altaz2radec.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_calcular_lst.cc $(SRC_DIR)/_hadec2radec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_calcular_lst.cc $(SRC_DIR)/_hadec2radec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
 
 # Compilación con debugging
 debug: CXXFLAGS = $(DEBUG_FLAGS)
