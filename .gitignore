@@ -459,3 +459,6 @@
 /symbolic-3.2.1/test_bugs.tst
 /symbolic-3.2.1/vpa.m
 /symbolic-3.2.1/vpasolve.m
+/paquetes/astronomia/.kdev4/*.kdev4
+*.kdev4
+*.oct
