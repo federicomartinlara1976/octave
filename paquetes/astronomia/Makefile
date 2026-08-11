@@ -101,6 +101,7 @@ debug: $(BUILD_DIR) $(TARGETS)
 # Limpiar archivos compilados
 clean:
 	rm -rf $(BUILD_DIR)/*.oct $(BUILD_DIR)/*.o $(BASE_DIR)/inst/*.oct
+	rm -f $(BASE_DIR)/astronomia*.tar.gz
 
 # Instalar en directorio de Octave
 install: all
