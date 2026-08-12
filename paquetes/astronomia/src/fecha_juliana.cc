@@ -2,7 +2,7 @@
 #include <astronomy_utils.h>
 #include <fecha_juliana.h>
 
-DEFUN_DLD (calcular_altura, args, , "Calcula la fecha juliana - Optimizado C++")
+DEFUN_DLD (fecha_juliana, args, , "Calcula la fecha juliana - Optimizado C++")
 {
 	int hora, minuto, segundo;
 

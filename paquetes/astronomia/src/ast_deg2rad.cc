@@ -2,7 +2,7 @@
 #include <astronomy_utils.h>
 #include <deg2rad.h>
 
-DEFUN_DLD (deg2rad, args, , "Convierte grados a radianes - Optimizado C++")
+DEFUN_DLD (ast_deg2rad, args, , "Convierte grados a radianes - Optimizado C++")
 {
 	// Verificar argumentos
   	if (args.length() != 1)

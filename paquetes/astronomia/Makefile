@@ -5,7 +5,7 @@ NAME := astronomia
 VERSION := 1.2.0
 OCTAVE_CONFIG := mkoctfile
 CXX := g++-9
-CXXFLAGS := -O3 -march=native -ffast-math -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0
+CXXFLAGS := -O3 -march=native -ffast-math
 DEBUG_FLAGS := -g -O0 -DDEBUG
 SRC_DIR := src
 BUILD_DIR := build
@@ -122,6 +122,7 @@ install: all
 uninstall:
 	rm -rf $(BUILD_DIR)/*.oct $(BUILD_DIR)/*.o $(BASE_DIR)/inst/*.oct
 	rm -rf $(BASE_DIR)/*.tar.gz
+	rm -rf $(BASE_DIR)/$(INSTALL_DIR)
 
 # Test básico
 test: all
