@@ -4,19 +4,21 @@
 NAME := astronomia
 VERSION := 1.2.0
 OCTAVE_CONFIG := mkoctfile
-CXXFLAGS := -O3 -march=native -ffast-math -std=c++11
+CXX := g++-9
+CXXFLAGS := -O3 -march=native -ffast-math -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0
 DEBUG_FLAGS := -g -O0 -DDEBUG
 SRC_DIR := src
 BUILD_DIR := build
 INCLUDE_DIR := include
-INCLUDE_OCTAVE_DIR := /usr/include/actave-5.2.0
+OCTAVE_LIBS := -L$(shell mkoctfile -p LIBDIR) -loctave -loctinterp
 BASE_DIR := .
+INSTALL_DIR := $(NAME)-$(VERSION)
 
 # Lista de objetivos (archivos .oct)
 TARGETS := $(BUILD_DIR)/deg2hms.oct \
 	$(BUILD_DIR)/hms2deg.oct \
-	$(BUILD_DIR)/deg2rad.oct \
-	$(BUILD_DIR)/rad2deg.oct \
+	$(BUILD_DIR)/ast_deg2rad.oct \
+	$(BUILD_DIR)/ast_rad2deg.oct \
 	$(BUILD_DIR)/hadec2radec.oct \
 	$(BUILD_DIR)/calcular_lst.oct \
 	$(BUILD_DIR)/fecha_juliana.oct \
@@ -44,55 +46,55 @@ $(BUILD_DIR):
 
 # Regla para compilar deg2hms
 $(BUILD_DIR)/deg2hms.oct: $(SRC_DIR)/deg2hms.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2hms.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2hms.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar hms2deg
 $(BUILD_DIR)/hms2deg.oct: $(SRC_DIR)/hms2deg.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_hms2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_hms2deg.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar deg2rad
-$(BUILD_DIR)/deg2rad.oct: $(SRC_DIR)/deg2rad.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc
+$(BUILD_DIR)/ast_deg2rad.oct: $(SRC_DIR)/ast_deg2rad.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar rad2deg
-$(BUILD_DIR)/rad2deg.oct: $(SRC_DIR)/rad2deg.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_rad2deg.cc
+$(BUILD_DIR)/ast_rad2deg.oct: $(SRC_DIR)/ast_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar hadec2radec
 $(BUILD_DIR)/hadec2radec.oct: $(SRC_DIR)/hadec2radec.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_hadec2radec.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_hadec2radec.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar calcular_lst
 $(BUILD_DIR)/calcular_lst.oct: $(SRC_DIR)/calcular_lst.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_calcular_lst.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_calcular_lst.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar fecha_juliana
 $(BUILD_DIR)/fecha_juliana.oct: $(SRC_DIR)/fecha_juliana.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar esfericas_a_cartesianas
 $(BUILD_DIR)/esfericas_a_cartesianas.oct: $(SRC_DIR)/esfericas_a_cartesianas.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_esfericas_a_cartesianas.cc $(SRC_DIR)/_deg2rad.cc 
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_esfericas_a_cartesianas.cc $(SRC_DIR)/_deg2rad.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar calcular_altura
 $(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar altura_objeto
 $(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar altaz2hadec
 $(BUILD_DIR)/altaz2hadec.oct: $(SRC_DIR)/altaz2hadec.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar coords_ecuatoriales_a_horizontales
 $(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct: $(SRC_DIR)/coords_ecuatoriales_a_horizontales.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_coords_ecuatoriales_a_horizontales.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_coords_ecuatoriales_a_horizontales.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
 	
 # Regla para compilar altaz2radec
 $(BUILD_DIR)/altaz2radec.oct: $(SRC_DIR)/altaz2radec.cc
-	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(INCLUDE_OCTAVE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_calcular_lst.cc $(SRC_DIR)/_hadec2radec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc
+	$(OCTAVE_CONFIG) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_calcular_lst.cc $(SRC_DIR)/_hadec2radec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
 
 # Compilación con debugging
 debug: CXXFLAGS = $(DEBUG_FLAGS)
@@ -102,11 +104,19 @@ debug: $(BUILD_DIR) $(TARGETS)
 clean:
 	rm -rf $(BUILD_DIR)/*.oct $(BUILD_DIR)/*.o $(BASE_DIR)/inst/*.oct
 	rm -f $(BASE_DIR)/astronomia*.tar.gz
+	rm -rf $(BASE_DIR)/$(INSTALL_DIR)
 
 # Instalar en directorio de Octave
 install: all
-	cp $(BUILD_DIR)/*.oct $(BASE_DIR)/inst
-	tar czf ./$(NAME)-$(VERSION).tar.gz ../$(NAME)/inst ../$(NAME)/COPYING ../$(NAME)/DESCRIPTION ../$(NAME)/INDEX ../$(NAME)/TODO.md
+	mkdir $(BASE_DIR)/$(INSTALL_DIR)
+	mkdir $(BASE_DIR)/$(INSTALL_DIR)/inst
+	cp $(BASE_DIR)/inst/*.m $(BASE_DIR)/$(INSTALL_DIR)/inst
+	cp $(BUILD_DIR)/*.oct $(BASE_DIR)/$(INSTALL_DIR)/inst
+	cp $(BASE_DIR)/COPYING $(BASE_DIR)/$(INSTALL_DIR)
+	cp $(BASE_DIR)/DESCRIPTION $(BASE_DIR)/$(INSTALL_DIR)
+	cp $(BASE_DIR)/INDEX $(BASE_DIR)/$(INSTALL_DIR)
+	cp $(BASE_DIR)/TODO.md $(BASE_DIR)/$(INSTALL_DIR)
+	tar czf ./$(NAME)-$(VERSION).tar.gz $(BASE_DIR)/$(INSTALL_DIR)/inst $(BASE_DIR)/$(INSTALL_DIR)/COPYING $(BASE_DIR)/$(INSTALL_DIR)/DESCRIPTION $(BASE_DIR)/$(INSTALL_DIR)/INDEX $(BASE_DIR)/$(INSTALL_DIR)/TODO.md
 
 # Desinstalar
 uninstall:
