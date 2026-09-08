@@ -1,7 +1,9 @@
 #include <deg2rad.h>
 #include <esfericas_a_cartesianas.h>
 
-std::tuple<double, double, double> _esfericas_a_cartesianas(double azimuth, double altura) {
+using namespace std;
+
+tuple<double, double, double> _esfericas_a_cartesianas(double azimuth, double altura) {
   	
   	double az_rad = _deg2rad(azimuth);
   	double alt_rad = _deg2rad(altura);
@@ -12,5 +14,5 @@ std::tuple<double, double, double> _esfericas_a_cartesianas(double azimuth, doub
   	double y = r * cos(alt_rad) * cos(az_rad);
   	double z = r * sin(alt_rad);
      
-    	return std::make_tuple(x, y, z);
+    	return make_tuple(x, y, z);
 }

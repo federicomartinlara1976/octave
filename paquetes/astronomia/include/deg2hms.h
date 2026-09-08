@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <tuple>
 
-std::tuple<int, int, double> _deg2hms(double grados);
+using namespace std;
+
+tuple<int, int, double> _deg2hms(double grados);
 
 #endif 

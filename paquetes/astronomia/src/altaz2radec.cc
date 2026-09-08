@@ -3,6 +3,8 @@
 #include <calcular_lst.h>
 #include <hadec2radec.h>
 
+using namespace std;
+
 DEFUN_DLD (altaz2radec, args, , "Convierte directamente de alt/az a RA/Dec - Optimizado C++")
 {
   	// Verificar argumentos
@@ -15,13 +17,13 @@ DEFUN_DLD (altaz2radec, args, , "Convierte directamente de alt/az a RA/Dec - Opt
   	double lon = args(3).double_value();
   	double fecha = args(4).double_value();
   	
-  	std::tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
+  	tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
     double lst = _calcular_lst(fecha, lon);
-    std::tuple<double, double> radec = _hadec2radec(std::get<0>(hadec), std::get<1>(hadec), lst);
+    tuple<double, double> radec = _hadec2radec(get<0>(hadec), get<1>(hadec), lst);
     
     RowVector resultado(2);
-    resultado(0) = std::get<0>(radec);
-    resultado(1) = std::get<1>(radec);
+    resultado(0) = get<0>(radec);
+    resultado(1) = get<1>(radec);
     
     return octave_value(resultado);
 }

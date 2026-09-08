@@ -4,6 +4,8 @@
 #include <cmath>
 #include <tuple>
 
-std::tuple<double, double, double> _esfericas_a_cartesianas(double azimuth, double altura);
+using namespace std;
+
+tuple<double, double, double> _esfericas_a_cartesianas(double azimuth, double altura);
 
 #endif 

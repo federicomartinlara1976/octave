@@ -4,6 +4,8 @@
 #include <cmath>
 #include <tuple>
 
-std::tuple<double, double> _altaz2hadec(double altura, double azimut, double latitud);
+using namespace std;
+
+tuple<double, double> _altaz2hadec(double altura, double azimut, double latitud);
 
 #endif 

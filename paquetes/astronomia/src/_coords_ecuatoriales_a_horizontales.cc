@@ -2,7 +2,9 @@
 #include <rad2deg.h>
 #include <coords_ecuatoriales_a_horizontales.h>
 
-std::tuple<double, double> _coords_ecuatoriales_a_horizontales(double ra, double dec, double lst, double lat_rad) {
+using namespace std;
+
+tuple<double, double> _coords_ecuatoriales_a_horizontales(double ra, double dec, double lst, double lat_rad) {
   	
   	double ra_rad = _deg2rad(ra * 15);
   	double dec_rad = _deg2rad(dec);
@@ -21,5 +23,5 @@ std::tuple<double, double> _coords_ecuatoriales_a_horizontales(double ra, double
   	if (azimuth < 0)
     		azimuth = azimuth + 360;
      
-    	return std::make_tuple(azimuth, altura);
+    	return make_tuple(azimuth, altura);
 }

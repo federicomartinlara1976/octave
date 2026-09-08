@@ -4,6 +4,8 @@
 #include <cmath>
 #include <tuple>
 
-std::tuple<double, double> _hadec2radec(double ha, double dec_hadec, double lst);
+using namespace std;
+
+tuple<double, double> _hadec2radec(double ha, double dec_hadec, double lst);
 
 #endif 

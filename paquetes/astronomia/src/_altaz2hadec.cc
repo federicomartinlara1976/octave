@@ -2,7 +2,9 @@
 #include <rad2deg.h>
 #include <altaz2hadec.h>
 
-std::tuple<double, double> _altaz2hadec(double altura, double azimut, double latitud) {
+using namespace std;
+
+tuple<double, double> _altaz2hadec(double altura, double azimut, double latitud) {
   	
   	// En radianes
   	double alt_rad = _deg2rad(altura);
@@ -17,5 +19,5 @@ std::tuple<double, double> _altaz2hadec(double altura, double azimut, double lat
     	double ha_deg = _rad2deg(ha_rad);
     	double dec_deg = _rad2deg(dec_rad);
     
-    	return std::make_tuple(ha_deg, dec_deg);
+    	return make_tuple(ha_deg, dec_deg);
 }

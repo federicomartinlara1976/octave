@@ -1,6 +1,8 @@
 #include <octave/oct.h>
 #include <altaz2hadec.h>
 
+using namespace std;
+
 DEFUN_DLD (altaz2hadec, args, , "Convierte coordenadas altazimutales a horarias - Optimizado C++")
 {
   	// Verificar argumentos
@@ -11,11 +13,11 @@ DEFUN_DLD (altaz2hadec, args, , "Convierte coordenadas altazimutales a horarias 
   	double az = args(1).double_value();
   	double lat = args(2).double_value();
   	
-  	std::tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
+  	tuple<double, double> hadec = _altaz2hadec(alt, az, lat);
     
     RowVector resultado(2);
-    resultado(0) = std::get<0>(hadec);
-    resultado(1) = std::get<1>(hadec);
+    resultado(0) = get<0>(hadec);
+    resultado(1) = get<1>(hadec);
     
     return octave_value(resultado);
 }
