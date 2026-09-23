@@ -12,4 +12,7 @@ using namespace std;
 // Convierte Día Juliano a [año, mes, día, hora, min, seg]
 tuple<int, int, int, int, int, double> jd2datevec(double jd);
 
+// Calcula ΔT (TT - UT) en segundos según Espenak & Meeus (2006)
+double DeltaT_EspenakMeeus(double year, double month);
+
 #endif 

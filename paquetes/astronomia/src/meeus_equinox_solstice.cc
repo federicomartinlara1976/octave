@@ -19,7 +19,7 @@ DEFUN_DLD (meeus_equinox_solstice, args, nargout,
     double year = args(0).double_value();
     string event = args(1).string_value();
     transform(event.begin(), event.end(), event.begin(),
-                   [](unsigned char c){ return std::tolower(c); });
+                   [](unsigned char c){ return tolower(c); });
 
     double JDE0;
     if (year <= 1000) {
@@ -62,8 +62,8 @@ DEFUN_DLD (meeus_equinox_solstice, args, nargout,
 
     double T = (JDE0 - 2451545.0) / 36525.0;
     double W = (35999.373 * T - 2.47) * M_PI / 180.0;
-    double DeltaLambda = 1.0 + 0.0334 * std::cos(W)
-                              + 0.0007 * std::cos(2.0 * W);
+    double DeltaLambda = 1.0 + 0.0334 * cos(W)
+                              + 0.0007 * cos(2.0 * W);
 
     static const double terms[][3] = {
         {485, 324.96,   1934.136},
@@ -97,13 +97,25 @@ DEFUN_DLD (meeus_equinox_solstice, args, nargout,
         double A = terms[i][0];
         double B = terms[i][1] * M_PI / 180.0;
         double C = terms[i][2] * M_PI / 180.0;
-        S += A * std::cos(B + C * T);
+        S += A * cos(B + C * T);
     }
 
     double JDE = JDE0 + 0.00001 * S / DeltaLambda;
 
-    // TT -> UTC (Delta T = 69 s para 2026; ajustar según el año)
-    double delta_T = 69.0;
+    // -----------------------------------------------------------------------
+    // CAMBIO: Calcular ΔT según Espenak & Meeus en lugar de usar 69 s fijos
+    // -----------------------------------------------------------------------
+    // Extraer mes del año decimal para la fórmula de ΔT
+    // Para el año en curso, usamos el mes del evento (aproximado).
+    // Se puede refinar pasando el mes como argumento adicional si se desea.
+    double mes_evento = 6.0; // valor por defecto (junio) para el solsticio
+    // Determinar mes aproximado según el evento
+    if (event == "march_equinox") mes_evento = 3.0;
+    else if (event == "june_solstice") mes_evento = 6.0;
+    else if (event == "september_equinox") mes_evento = 9.0;
+    else if (event == "december_solstice") mes_evento = 12.0;
+
+    double delta_T = DeltaT_EspenakMeeus(year, mes_evento);
     double JD_utc = JDE - delta_T / 86400.0;
 
     tuple<int, int, int, int, int, double> date = jd2datevec(JD_utc);
