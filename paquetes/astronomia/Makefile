@@ -28,7 +28,8 @@ OCT_TARGETS := $(BUILD_DIR)/deg2hms.oct \
 	$(BUILD_DIR)/altura_objeto.oct \
 	$(BUILD_DIR)/altaz2hadec.oct \
 	$(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct \
-	$(BUILD_DIR)/altaz2radec.oct 
+	$(BUILD_DIR)/altaz2radec.oct \
+	$(BUILD_DIR)/meeus_equinox_solstice.oct
 
 # Todos los objetivos por defecto
 all: $(BUILD_DIR) $(OCT_TARGETS)
@@ -96,6 +97,10 @@ $(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct: $(SRC_DIR)/coords_ecuatoria
 # Regla para compilar altaz2radec
 $(BUILD_DIR)/altaz2radec.oct: $(SRC_DIR)/altaz2radec.cc
 	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_calcular_lst.cc $(SRC_DIR)/_hadec2radec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar meeus_equinox_solstice
+$(BUILD_DIR)/meeus_equinox_solstice.oct: $(SRC_DIR)/meeus_equinox_solstice.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_meeus_equinox_solstice.cc $(OCTAVE_LIBS)
 
 # Compilación con debugging
 debug: CXXFLAGS = $(DEBUG_FLAGS)
