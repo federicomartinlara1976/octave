@@ -1,0 +1,176 @@
+# Makefile para funciones astronómicas en C++ - Octave
+
+# Configuración
+NAME := astronomia
+VERSION := 1.2.0
+OCTAVE_COMPILER := mkoctfile
+CXX := g++-9
+# Compilar con las opciones para el uso de la FPU
+CXXFLAGS := -O3 -march=native -ffast-math
+DEBUG_FLAGS := -g -O0 -DDEBUG
+SRC_DIR := src
+BUILD_DIR := build
+INCLUDE_DIR := include
+OCTAVE_LIBS := -L$(shell mkoctfile -p LIBDIR) -loctave -loctinterp
+BASE_DIR := .
+INSTALL_DIR := $(NAME)-$(VERSION)
+
+# Lista de objetivos (archivos .oct, código compilado en C++ para hacer uso de la unidad FPU)
+OCT_TARGETS := $(BUILD_DIR)/deg2hms.oct \
+	$(BUILD_DIR)/hms2deg.oct \
+	$(BUILD_DIR)/ast_deg2rad.oct \
+	$(BUILD_DIR)/ast_rad2deg.oct \
+	$(BUILD_DIR)/hadec2radec.oct \
+	$(BUILD_DIR)/calcular_lst.oct \
+	$(BUILD_DIR)/fecha_juliana.oct \
+	$(BUILD_DIR)/esfericas_a_cartesianas.oct \
+	$(BUILD_DIR)/calcular_altura.oct \
+	$(BUILD_DIR)/altura_objeto.oct \
+	$(BUILD_DIR)/altaz2hadec.oct \
+	$(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct \
+	$(BUILD_DIR)/altaz2radec.oct \
+	$(BUILD_DIR)/meeus_equinox_solstice.oct
+
+# Todos los objetivos por defecto
+all: $(BUILD_DIR) $(OCT_TARGETS)
+
+# Crear directorio build si no existe
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+# Regla para compilar kepler_period3
+#$(BUILD_DIR)/kepler_period3.oct: $(SRC_DIR)/kepler_period3.cc
+#	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $<
+	
+# Regla para compilar orbital_velocity
+#$(BUILD_DIR)/orbital_velocity.oct: $(SRC_DIR)/orbital_velocity.cc
+#	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< 
+
+# Regla para compilar deg2hms
+$(BUILD_DIR)/deg2hms.oct: $(SRC_DIR)/deg2hms.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2hms.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar hms2deg
+$(BUILD_DIR)/hms2deg.oct: $(SRC_DIR)/hms2deg.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_hms2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar deg2rad
+$(BUILD_DIR)/ast_deg2rad.oct: $(SRC_DIR)/ast_deg2rad.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar rad2deg
+$(BUILD_DIR)/ast_rad2deg.oct: $(SRC_DIR)/ast_rad2deg.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar hadec2radec
+$(BUILD_DIR)/hadec2radec.oct: $(SRC_DIR)/hadec2radec.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_hadec2radec.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar calcular_lst
+$(BUILD_DIR)/calcular_lst.oct: $(SRC_DIR)/calcular_lst.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_calcular_lst.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar fecha_juliana
+$(BUILD_DIR)/fecha_juliana.oct: $(SRC_DIR)/fecha_juliana.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_fecha_juliana.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar esfericas_a_cartesianas
+$(BUILD_DIR)/esfericas_a_cartesianas.oct: $(SRC_DIR)/esfericas_a_cartesianas.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_esfericas_a_cartesianas.cc $(SRC_DIR)/_deg2rad.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar calcular_altura
+$(BUILD_DIR)/calcular_altura.oct: $(SRC_DIR)/calcular_altura.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar altura_objeto
+$(BUILD_DIR)/altura_objeto.oct: $(SRC_DIR)/altura_objeto.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar altaz2hadec
+$(BUILD_DIR)/altaz2hadec.oct: $(SRC_DIR)/altaz2hadec.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar coords_ecuatoriales_a_horizontales
+$(BUILD_DIR)/coords_ecuatoriales_a_horizontales.oct: $(SRC_DIR)/coords_ecuatoriales_a_horizontales.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_coords_ecuatoriales_a_horizontales.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar altaz2radec
+$(BUILD_DIR)/altaz2radec.oct: $(SRC_DIR)/altaz2radec.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_altaz2hadec.cc $(SRC_DIR)/_calcular_lst.cc $(SRC_DIR)/_hadec2radec.cc $(SRC_DIR)/_deg2rad.cc $(SRC_DIR)/_rad2deg.cc $(OCTAVE_LIBS)
+	
+# Regla para compilar meeus_equinox_solstice
+$(BUILD_DIR)/meeus_equinox_solstice.oct: $(SRC_DIR)/meeus_equinox_solstice.cc
+	$(OCTAVE_COMPILER) $(CXXFLAGS) -I$(INCLUDE_DIR) -o $@ $< $(SRC_DIR)/_meeus_equinox_solstice.cc $(OCTAVE_LIBS)
+
+# Compilación con debugging
+debug: CXXFLAGS = $(DEBUG_FLAGS)
+debug: $(BUILD_DIR) $(TARGETS)
+
+# Limpiar archivos compilados
+clean:
+	rm -rf $(BUILD_DIR)/*.oct $(BUILD_DIR)/*.o $(BASE_DIR)/inst/*.oct
+	rm -f $(BASE_DIR)/astronomia*.tar.gz
+	rm -rf $(BASE_DIR)/$(INSTALL_DIR)
+
+# Instalar en directorio de Octave
+install: all
+	mkdir $(BASE_DIR)/$(INSTALL_DIR)
+	mkdir $(BASE_DIR)/$(INSTALL_DIR)/inst
+	
+	# Copia binarios y código interpretado al directorio de instalación
+	cp $(BASE_DIR)/inst/*.m $(BASE_DIR)/$(INSTALL_DIR)/inst
+	cp $(BUILD_DIR)/*.oct $(BASE_DIR)/$(INSTALL_DIR)/inst
+	
+	# Archivos de metadatos del paquete
+	cp $(BASE_DIR)/COPYING $(BASE_DIR)/$(INSTALL_DIR)
+	cp $(BASE_DIR)/DESCRIPTION $(BASE_DIR)/$(INSTALL_DIR)
+	cp $(BASE_DIR)/INDEX $(BASE_DIR)/$(INSTALL_DIR)
+	cp $(BASE_DIR)/TODO.md $(BASE_DIR)/$(INSTALL_DIR)
+	
+	tar czf ./$(NAME)-$(VERSION).tar.gz $(BASE_DIR)/$(INSTALL_DIR)/inst $(BASE_DIR)/$(INSTALL_DIR)/COPYING $(BASE_DIR)/$(INSTALL_DIR)/DESCRIPTION $(BASE_DIR)/$(INSTALL_DIR)/INDEX $(BASE_DIR)/$(INSTALL_DIR)/TODO.md
+	
+	# Limpieza
+	rm $(BUILD_DIR)/*.oct
+	rm -rf $(BASE_DIR)/$(INSTALL_DIR)
+	
+	echo "Paquete listo. Puede instalarlo desde Octave con: pkg install \"$(NAME)-$(VERSION).tar.gz\""
+
+# Desinstalar
+uninstall:
+	rm -rf $(BUILD_DIR)/*.oct $(BUILD_DIR)/*.o $(BASE_DIR)/inst/*.oct
+	rm -rf $(BASE_DIR)/*.tar.gz
+	rm -rf $(BASE_DIR)/$(INSTALL_DIR)
+
+# Test básico
+test: all
+	octave --eval "addpath('$(BUILD_DIR)'); \
+	               result = deg2hms(45.5); \
+	               printf('45.5° = %dh %dm %.2fs\\n', result(1), result(2), result(3)); \
+	               result = deg2rad(45.0); \
+	               printf('45.0° = %.2f\\n', result(1)); \
+	               result = rad2deg(0.79); \
+	               printf('0.79 rad = %.2f\\n', result(1)); \
+	               result = altaz2hadec(90, 0, 40.4); \
+	               printf('HA = %.2f°, Dec = %.2f°\n', result(1), result(2));"
+
+# Información del sistema
+info:
+	@echo "=== Sistema de Compilación Astronómica ==="
+	@echo "Compilador: $(OCTAVE_COMPILER)"
+	@echo "Flags: $(CXXFLAGS)"
+	@echo "Binary Targets: $(OCT_TARGETS)"
+	@echo "Directorio fuente: $(SRC_DIR)"
+	@echo "Directorio build: $(BUILD_DIR)"
+
+# Ayuda
+help:
+	@echo "Targets disponibles:"
+	@echo "  all       - Compilar todas las funciones (default)"
+	@echo "  debug     - Compilar con información de debugging"
+	@echo "  clean     - Eliminar archivos compilados"
+	@echo "  install   - Hace el paquete completo preparado para instalar en Octave"
+	@echo "  uninstall - Desinstalar"
+	@echo "  test      - Ejecutar test básico"
+	@echo "  info      - Mostrar información del sistema"
+
+.PHONY: all debug clean distclean install uninstall test info help 
