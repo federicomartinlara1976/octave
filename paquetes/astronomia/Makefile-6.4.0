@@ -4,7 +4,7 @@
 NAME := astronomia
 VERSION := 1.2.0
 OCTAVE_COMPILER := mkoctfile
-OCTAVE_LIB_DIR := $(shell mkoctfile -p LIBDIR) 
+OCTAVE_LIB_DIR := /usr/lib/x86_64-linux-gnu/octave/6.4.0
 CXX := $(shell mkoctfile -p CXX)
 # Compilar con las opciones para el uso de la FPU
 CXXFLAGS := -O3 -march=native -ffast-math
