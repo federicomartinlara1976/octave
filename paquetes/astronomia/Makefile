@@ -133,6 +133,7 @@ install: all
 	# Limpieza
 	rm $(BUILD_DIR)/*.oct
 	rm -rf $(BASE_DIR)/$(INSTALL_DIR)
+	mv $(NAME)-$(VERSION).tar.gz ../
 	
 	echo "Paquete listo. Puede instalarlo desde Octave con: pkg install \"$(NAME)-$(VERSION).tar.gz\""
 
