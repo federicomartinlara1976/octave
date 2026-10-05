@@ -30,12 +30,12 @@ tuple<int, int, int, int, int, double> jd2datevec(double jd) {
     double day = B - D - floor(30.6001 * E) + F;
     int month = (E < 14) ? static_cast<int>(E - 1) : static_cast<int>(E - 13);
     int year = (month > 2) ? static_cast<int>(C - 4716) : static_cast<int>(C - 4715);
-    int day_int = static_cast<int>(std::floor(day));
+    int day_int = static_cast<int>(floor(day));
     double frac = day - day_int;
     double hours = frac * 24.0;
-    int hour_int = static_cast<int>(std::floor(hours));
+    int hour_int = static_cast<int>(floor(hours));
     double minutes = (hours - hour_int) * 60.0;
-    int min_int = static_cast<int>(std::floor(minutes));
+    int min_int = static_cast<int>(floor(minutes));
     double seconds = (minutes - min_int) * 60.0;
 
     return make_tuple(year, month, day_int, hour_int, min_int, seconds);
