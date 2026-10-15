@@ -43,3 +43,6 @@
 * Conexión con APIs astronómicas públicas
 * Importación de formatos FITS básicos
 * Catálogos de objetos Messier/NG 
+
+### Correcciones:
+* Corregir fases lunares, se muestran al revés
